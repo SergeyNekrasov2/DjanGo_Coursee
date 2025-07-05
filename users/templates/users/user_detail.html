@@ -1,0 +1,18 @@
+{% extends 'recipient_manager/home.html'%}
+{% block content %}
+
+<hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading fw-normal lh-1">{{ user.email}} <span class="text-body-secondary">{{ recipient.email}}</span></h2>
+        <p class="lead">{{user.is_active }}</p>
+        <p class="lead">{{user.is_superuser }}</p>
+        {% if perms.users.blocking_user %}
+        <a class="btn btn-primary" href="{% url 'users.blocking_user' user.pk %}" role="button">Заблокировать</a>
+
+        {% endif %}
+      </div>
+    </div>
+{% endfor %}
+{% endblock %}

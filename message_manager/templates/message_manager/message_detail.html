@@ -1,0 +1,17 @@
+{% extends 'recipient_manager/home.html'%}
+{% block content %}
+<hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+         <h2 class="featurette-heading fw-normal lh-1">{{ message.subject}}</h2>
+        <p class="lead">{{message.body_text }}</p>
+          {% if perms.message_manager.change_message or user == message.owner %}
+        <a class="btn btn-primary" href="{% url 'message_manager:message_update' message.pk %}" role="button">Изменить</a>
+          {% endif %}
+          {% if perms.message_manager.delete_message or user == message.owner %}
+        <a class="btn btn-primary" href="{% url 'message_manager:message_delete' message.pk %}" role="button">Удалить</a>
+          {% endif %}
+      </div>
+    </div>
+{% endblock %}

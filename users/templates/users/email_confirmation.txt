@@ -1,0 +1,7 @@
+Здравствуйте, {{ user.username }}!
+
+Чтобы подтвердить вашу регистрацию, перейдите по ссылке:
+http://{{ domain }}{% url 'users:email_confirmation' uid token %}
+
+С уважением,
+Администрация
