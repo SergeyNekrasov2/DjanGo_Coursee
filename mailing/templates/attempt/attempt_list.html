@@ -1,0 +1,16 @@
+{% extends 'recipient_manager/home.html'%}
+{% block content %}
+
+{% for attempt in attempts %}
+<hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading fw-normal lh-1">{{ attempt.id }} {{ attempt.mailing.message.subject }} </h2>
+        <p class="lead">{{attempt.attempt_date }}</p>
+        <p class="lead">{{attempt.status }}</p>
+        <a class="btn btn-primary" href="{{ attempt.id }}" role="button">Подробнее</a>
+      </div>
+    </div>
+{% endfor %}
+{% endblock %}

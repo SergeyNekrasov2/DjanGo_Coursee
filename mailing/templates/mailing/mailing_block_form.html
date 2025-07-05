@@ -1,0 +1,27 @@
+{% extends 'recipient_manager/home.html'%}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form class="row" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <h2>Блокировка id mailing: {{ mailing.id}} {{ mailing.message.subject}}</h2>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    {% if mailing.is_active %}
+                    <button type="submit" class="btn btn-primary">
+                        Разблокировать
+                    </button>
+                    {% else %}
+                    <button type="submit" class="btn btn-primary">
+                        Заблокировать
+                    </button>
+                    {% endif%}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'recipient_manager/home.html'%}
+{% block content %}
+
+{% for mailing in mailings %}
+<hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading fw-normal lh-1">{{ mailing.id}} </h2>
+        <p class="lead">{{mailing.status }}</p>
+        <p class="lead">{{mailing.message.subject }}</p>
+          {% if perms.mailing.view_mailing or user == mailing.mailing_owner %}
+        <a class="btn btn-primary" href="{{ mailing.pk }}" role="button">Подробнее</a>
+          {% endif %}
+      </div>
+    </div>
+{% endfor %}
+{% endblock %}

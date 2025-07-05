@@ -1,0 +1,36 @@
+{% extends 'recipient_manager/home.html'%}
+{% block content %}
+
+
+<hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading fw-normal lh-1">{{ mailing.id}} </h2>
+        <p class="lead">{{mailing.date_first_sending }}</p>
+        <p class="lead">{{mailing.date_end_shipment }}</p>
+        <p class="lead">{{mailing.status }}</p>
+        <p class="lead">{{mailing.message.subject }}</p>
+        <p class="lead">Recipients
+        <ul> {% for recipient in mailing.recipient.all %}
+              <li> {{ recipient.email }} </li>
+            {% endfor %}
+      </ul>
+        </p>
+          {% if perms.mailing.send_mailing or user == mailing.mailing_owner %}
+        <a class="btn btn-primary" href="{% url 'mailing:send' mailing.pk %}" role="button">Отправить рассылку</a>
+          {% endif %}
+          {% if perms.mailing.change_mailing or user == mailing.mailing_owner %}
+        <a class="btn btn-primary" href="{% url 'mailing:mailing_update' mailing.pk %}" role="button">Изменить</a>
+          {% endif %}
+          {% if perms.mailing.delete_mailing or user == mailing.mailing_owner %}
+        <a class="btn btn-primary" href="{% url 'mailing:mailing_delete' mailing.pk %}" role="button">Удалить</a>
+          {% endif %}
+        <a class="btn btn-primary" href="{% url 'mailing:attempt_list' mailing.pk %}" role="button">Попытки</a>
+         {% if perms.mailing.blocking_mailing %}
+        <a class="btn btn-primary" href="{% url 'mailing:blocking_mailing' mailing.pk %}" role="button">Заблокировать</a>
+          {% endif %}
+      </div>
+    </div>
+
+{% endblock %}

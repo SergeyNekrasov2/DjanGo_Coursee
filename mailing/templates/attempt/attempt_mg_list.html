@@ -1,0 +1,27 @@
+{% extends 'recipient_manager/home.html'%}
+{% block content %}
+
+{% for attempt in attempts %}
+<hr class="featurette-divider">
+
+    <div class="container">
+        <h1>Attempts for Mailing ID: {{ mailing.id }}</h1>
+        <table class="table">
+            <tr>
+                <th>Attempt Date</th>
+                <th>Status</th>
+                <th>Подробнее</th>
+            </tr>
+            {% for attempt in attempts %}
+            <tr>
+                <td>{{ attempt.attempt_date }}</td>
+                <td>{{ attempt.status }}</td>
+                <td>
+                     <a class="btn btn-primary" href="{% url 'mailing:attempt_detail' attempt.pk %}" role="button">Подробнее</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endfor %}
+{% endblock %}

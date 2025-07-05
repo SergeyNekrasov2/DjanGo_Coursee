@@ -1,0 +1,43 @@
+{% extends 'recipient_manager/home.html'%}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Статистика рассылок</title>
+</head>
+<body>
+    <h1>Общая статистика</h1>
+    <p>Успешных попыток: {{ user_summary.total_successful }}</p>
+    <p>Неуспешных попыток: {{ user_summary.total_unsuccessful }}</p>
+    <p>Всего отправлено сообщений: {{ user_summary.total_messages }}</p>
+
+    <h1>Статистика по рассылкам</h1>
+    <table>
+        <tr>
+            <th>ID рассылки</th>
+            <th>Дата первой отправки</th>
+            <th>Успешные попытки</th>
+            <th>Неуспешные попытки</th>
+            <th>Всего сообщений</th>
+            <th>Подробнее</th>
+
+        </tr>
+        {% for stat in mailing_stats %}
+        <tr>
+            <td>{{ stat.mailing_id }}</td>
+            <td>{{ stat.date_first_sending }}</td>
+            <td>{{ stat.successful_attempts }}</td>
+            <td>{{ stat.unsuccessful_attempts }}</td>
+            <td>{{ stat.total_messages }}</td>
+            <td>
+                <a href="{% url 'mailing:attempt_detail' stat.mailing_id %}" class="btn btn-primary">Посмотреть</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+
+{% endblock %}
