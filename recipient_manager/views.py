@@ -13,7 +13,7 @@ class MailingRecipientListView(LoginRequiredMixin, PermissionRequiredMixin, List
     model = MailingRecipient
     template_name = 'recipient_manager/recipient_list.html'
     context_object_name = 'recipients'
-    permission_required = 'recipient.view_recipient'
+    permission_required = 'recipient_manager.view_mailingrecipient'
 
     def get_form_class(self):
         user = self.request.user
@@ -26,7 +26,7 @@ class MailingRecipientDetailView(LoginRequiredMixin, PermissionRequiredMixin, De
     template_name = 'recipient_manager/recipient_detail.html'
     context_object_name = 'recipient'
     pk_url_kwarg = 'pk'
-    permission_required = 'recipient.view_recipient'
+    permission_required = 'recipient_manager.view_mailingrecipient'
 
     def get_form_class(self):
         user = self.request.user
@@ -51,7 +51,7 @@ class MailingRecipientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, De
     template_name = 'recipient_manager/recipients_delete.html'
     context_object_name = 'recipient'
     pk_url_kwarg = 'pk'
-    permission_required = 'recipient.delete_recipient'
+    permission_required = 'recipient_manager.delete_mailingrecipient'
 
     def get_form_class(self):
         user = self.request.user
@@ -65,7 +65,7 @@ class MailingRecipientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Up
     form_class = MailingRecipientForm
     template_name = 'recipient_manager/recipient_form.html'
     success_url = reverse_lazy('recipient_manager:recipient_list')
-    permission_required = 'recipient.change_recipient'
+    permission_required = 'recipient_manager.change_mailingrecipient'
 
     def get_form_class(self):
         user = self.request.user

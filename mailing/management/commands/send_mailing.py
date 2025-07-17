@@ -11,7 +11,7 @@ def save_attempt(mailing, status,  status_response=None, recipient=None):
     attempt = AttemptMailing(mailing=mailing, attempt_date=timezone.now(), status=status)
 
     if recipient:
-        attempt.status_response.append(f'{recipient} {status_response}')
+        attempt.status_response = f'{recipient} {status_response}'
 
     elif status_response:
         attempt.status_response = status_response
@@ -56,8 +56,8 @@ class Command(BaseCommand):
 
         try:
             for recipient in recipients:
-                send_mail(mailing.message.subject, mailing.message.body_text, from_email, recipient.email)
-                save_attempt(mailing, 'Unsuccessful', recipient=recipient.email)
+                send_mail(mailing.message.subject, mailing.message.body_text, from_email, [recipient])
+                save_attempt(mailing, 'Unsuccessful', recipient=recipient)
 
             mailing.date_end_shipment = timezone.now().date()
             mailing.status = 'Completed'
