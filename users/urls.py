@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth.views import LoginView, TemplateView
 from .views import (UserRegisterView, custom_logout, PasswordResetView,
                     ConfirmRegistrationView, PasswordResetRequestView,
-                    UsersListView, UsersDetailView, BlockingUsersView, )
+                    UsersListView, UsersDetailView, BlockingUsersView,  )
 
 from .apps import UsersConfig
 

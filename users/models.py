@@ -11,7 +11,7 @@ class User(AbstractUser):
     password_reset_token = models.CharField(max_length=255, null=True, blank=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username',]
 
     class Meta:
         verbose_name = 'Пользователь'
