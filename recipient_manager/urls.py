@@ -1,10 +1,10 @@
-from django.urls import path, include
-from recipient_manager.apps import RecipientManagerConfig
+from django.urls import path
+
+from recipient_manager.apps import UserManagerConfig
 from recipient_manager.views import (MailingRecipientListView, HomeView, MailingRecipientDetailView,
                                      MailingRecipientCreateView, MailingRecipientDeleteView, MailingRecipientUpdateView)
 
-
-app_name = RecipientManagerConfig.name
+app_name = UserManagerConfig.name
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),

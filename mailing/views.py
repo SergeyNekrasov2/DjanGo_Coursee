@@ -60,9 +60,10 @@ class MailingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     success_url = reverse_lazy('mailing:mailing_list')
     permission_required = 'mailing.change_mailing'
 
+
     def get_form_class(self):
         user = self.request.user
-        if not user.has_perm('mailing.change_mailing') or not user == self.object.owner:
+        if not user.has_perm('mailing.change_mailing') or not user == self.object.mailing_owner:
             raise PermissionDenied
 
 
@@ -89,7 +90,7 @@ class MailingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
 
     def get_form_class(self):
         user = self.request.user
-        if not user.has_perm('mailing.delete_mailing') or not user == self.object.owner:
+        if not user.has_perm('mailing.delete_mailing') or not user == self.object.mailing_owner:
             raise PermissionDenied
 
 

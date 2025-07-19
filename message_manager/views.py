@@ -60,8 +60,11 @@ class MessageUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
 
 
 class MessageDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+
     model = Message
     template_name = 'message_manager/message_delete.html'
+    pk_url_kwarg = 'pk'
+    success_url = reverse_lazy('recipient_manager:home')
     permission_required = 'message_manager.delete_message'
 
     def get_form_class(self):

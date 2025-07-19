@@ -8,6 +8,10 @@ class MailingForm(forms.ModelForm):
         model = Mailing
         fields = ['message', 'recipient']
 
+#class MailingModeratorForm(forms.ModelForm):
+#    class Meta:
+#        model = Mailing
+#        fields = ['message','recipient']
 
 class BlockingMailing(forms.ModelForm):
     class Meta:
