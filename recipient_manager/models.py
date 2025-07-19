@@ -10,3 +10,4 @@ class MailingRecipient(models.Model):
     fio = models.CharField(max_length=150, verbose_name='ФИО')
     comment = models.TextField(blank=True, null=True)
     recipient_owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Владелец карточки клиента', blank=True, null=True)
+

@@ -66,7 +66,7 @@ class ConfirmRegistrationView(View):
 
 def custom_logout(request):
     logout(request)
-    return redirect('/home/')
+    return redirect('/')
 
 
 class PasswordResetRequestView(FormView):

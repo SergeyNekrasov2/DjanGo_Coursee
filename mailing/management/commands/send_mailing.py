@@ -49,7 +49,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR('Нет получателей для отправки'))
             return
 
-        # email_data = [
+        #email_data = [
         #     (mailing.message.subject, mailing.message.body_text, from_email, [recipient])
         #     for recipient in recipients
         # ]
