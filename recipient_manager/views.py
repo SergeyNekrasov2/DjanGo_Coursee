@@ -41,7 +41,7 @@ class MailingRecipientCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('recipient_manager:recipient_list')
 
     def form_valid(self, form):
-        form.instance.mailing_owner = self.request.user
+        form.instance.recipient_owner = self.request.user
         return super().form_valid(form)
 
 
@@ -53,10 +53,12 @@ class MailingRecipientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, De
     pk_url_kwarg = 'pk'
     permission_required = 'recipient_manager.delete_mailingrecipient'
 
-    def get_form_class(self):
+    def has_permission(self):
         user = self.request.user
-        if not user.has_perm('recipient_manager.delete_recipient') or not user == self.object.owner:
-            raise PermissionDenied
+        self.object = self.get_object()
+        if not user.has_perm('recipient_manager.delete_mailingrecipient') or not user == self.object.recipient_owner:
+            raise False
+        return True
 
 
 class MailingRecipientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -71,7 +73,8 @@ class MailingRecipientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Up
         user = self.request.user
         self.object = self.get_object()
         if not user.has_perm('recipient_manager.change_mailingrecipient') or not user == self.object.recipient_owner:
-            raise PermissionDenied
+            raise False
+        return True
 
 
 class HomeView(TemplateView):
