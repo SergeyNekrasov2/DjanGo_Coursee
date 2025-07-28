@@ -61,8 +61,8 @@ class MailingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     permission_required = 'mailing.change_mailing'
 
     def has_permission(self):
-        user = self.request.user
         self.object = self.get_object()
+        user = self.request.user
         if not user.has_perm('mailing.change_mailing') or not user == self.object.mailing_owner:
             raise False
         return True

@@ -30,7 +30,7 @@ class MailingRecipientDetailView(LoginRequiredMixin, PermissionRequiredMixin, De
 
     def get_form_class(self):
         user = self.request.user
-        if not user.has_perm('recipient.view_recipient') or not user == self.object.owner:
+        if not user.has_perm('recipient_manager.view_recipient') or not user == self.object.owner:
             raise PermissionDenied
 
 
@@ -51,7 +51,7 @@ class MailingRecipientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, De
     template_name = 'recipient_manager/recipient_delete.html'
     context_object_name = 'recipient'
     pk_url_kwarg = 'pk'
-    permission_required = 'recipient_manager.delete_mailingrecipient'
+    permission_required = 'recipient_manager.can_delete_mailingrecipient'
 
     def has_permission(self):
         user = self.request.user

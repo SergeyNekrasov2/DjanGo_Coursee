@@ -8,7 +8,7 @@
       <div class="col-md-7">
         <h2 class="featurette-heading fw-normal lh-1">{{ recipient.fio}} <span class="text-body-secondary">{{ recipient.email}}</span></h2>
         <p class="lead">{{recipient.comment }}</p>
-        {% if perms.recipient.view_recipient or user == recipient.owner %}
+        {% if perms.recipient_manager.view_recipient or user == recipient.owner %}
         <a class="btn btn-primary" href="{{ recipient.id }}" role="button">Подробнее</a>
         {% endif %}
       </div>

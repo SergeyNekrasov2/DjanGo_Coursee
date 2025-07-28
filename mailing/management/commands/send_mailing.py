@@ -12,7 +12,6 @@ def save_attempt(mailing, status,  status_response=None, recipient=None):
 
     if recipient:
         attempt.status_response = f'{recipient} {status_response}'
-
     elif status_response:
         attempt.status_response = status_response
 
