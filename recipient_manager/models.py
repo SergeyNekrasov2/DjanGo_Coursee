@@ -11,3 +11,10 @@ class MailingRecipient(models.Model):
     comment = models.TextField(blank=True, null=True)
     recipient_owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Владелец карточки клиента', blank=True, null=True)
 
+    class Meta:
+        verbose_name = 'Получатель рассылки'
+        verbose_name_plural = 'Получатели рассылки'
+
+
+    def __str__(self):
+        return self.email

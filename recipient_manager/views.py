@@ -20,6 +20,12 @@ class MailingRecipientListView(LoginRequiredMixin, PermissionRequiredMixin, List
         if not user.has_perm('recipient.view_recipient') or not user == self.object.owner:
             raise PermissionDenied
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if self.request.user.groups.filter(name='moder').exists():
+            return qs
+        return qs.filter(recipient_owner=self.request.user)
+
 
 class MailingRecipientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = MailingRecipient

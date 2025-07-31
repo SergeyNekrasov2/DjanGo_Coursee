@@ -32,6 +32,11 @@ class MessageListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         if not user.has_perm('message_manager.view_message') or not user == self.object.owner:
             raise PermissionDenied
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if self.request.user.groups.filter(name='moder').exists():
+            return qs
+        return qs.filter(owner=self.request.user)
 
 class MessageDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Message

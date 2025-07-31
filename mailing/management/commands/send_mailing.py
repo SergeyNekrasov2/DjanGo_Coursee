@@ -56,17 +56,15 @@ class Command(BaseCommand):
         try:
             for recipient in recipients:
                 send_mail(mailing.message.subject, mailing.message.body_text, from_email, [recipient])
-                save_attempt(mailing, 'Unsuccessful', recipient=recipient)
+                save_attempt(mailing, 'Successful', recipient=recipient)
 
             mailing.date_end_shipment = timezone.now().date()
             mailing.status = 'Completed'
-
             mailing.save()
 
-            save_attempt(mailing, 'Completed')
             self.stdout.write(self.style.SUCCESS('Рассылка успешно отправлена'))
 
         except Exception as e:
 
-            save_attempt(mailing, 'Unsuccessful', e)
+            save_attempt(mailing, 'Unsuccessful', e, recipient=recipient)
             # self.stdout.write(self.style.ERROR(f'Ошибка при отправке рассылки: {str(e)}'))
