@@ -1,9 +1,6 @@
 {% extends 'recipient_manager/home.html'%}
 {% block content %}
 
-{% for attempt in attempts %}
-<hr class="featurette-divider">
-
     <div class="container">
         <h1>Attempts for Mailing ID: {{ mailing.id }}</h1>
         <table class="table">
@@ -23,5 +20,5 @@
             {% endfor %}
         </table>
     </div>
-{% endfor %}
+
 {% endblock %}

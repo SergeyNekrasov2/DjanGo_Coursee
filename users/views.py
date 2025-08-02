@@ -66,7 +66,7 @@ class ConfirmRegistrationView(View):
 
 def custom_logout(request):
     logout(request)
-    return redirect('/home/')
+    return redirect('/')
 
 
 class PasswordResetRequestView(FormView):
@@ -116,11 +116,11 @@ class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = User
     template_name = 'users/users_list.html'
     context_object_name = 'users'
-    permission_required = 'user.view_user'
+    permission_required = 'users.view_user'
 
     def get_form_class(self):
         user = self.request.user
-        if not user.has_perm('user.list_user'):
+        if not user.has_perm('users.list_user'):
             raise PermissionDenied
 
 
@@ -129,11 +129,11 @@ class UsersDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     template_name = 'users/users_detail.html'
     context_object_name = 'user'
     pk_url_kwarg = 'pk'
-    permission_required = 'user.list_user'
+    permission_required = 'users.list_user'
 
     def get_form_class(self):
         user = self.request.user
-        if not user.has_perm('user.list_user'):
+        if not user.has_perm('users.list_user'):
             raise PermissionDenied
 
 
@@ -141,12 +141,12 @@ class BlockingUsersView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     model = User
     form_class = BlockingUser
     template_name = 'users/user_block_form.html'
-    success_url = reverse_lazy('user:users_list')
-    permission_required = 'user.blocking_user'
+    success_url = reverse_lazy('users:users_list')
+    permission_required = 'users.blocking_user'
 
     def get_form_class(self):
         user = self.request.user
-        if not user.has_perm('user.blocking_user'):
+        if not user.has_perm('users.blocking_user'):
             raise PermissionDenied
         else:
             return BlockingUser

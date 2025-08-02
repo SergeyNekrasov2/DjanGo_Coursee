@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.getenv('DEBUG') == 'True' else False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -141,8 +141,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = 'users.User'
 
-LOGIN_REDIRECT_URL = '/home/'
-LOGOUT_REDIRECT_URL = '/home/'
+LOGIN_URL = "users:login"
+LOGOUT_URL = ''
+
+LOGIN_REDIRECT_URL = 'recipient_manager:home'
+LOGOUT_REDIRECT_URL = 'recipient_manager:home'
 
 #настройка почтового сервиса
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

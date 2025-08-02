@@ -39,6 +39,11 @@ class MailingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         if not user.has_perm('mailing.view_mailing') or not user == self.object.owner:
             raise PermissionDenied
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if self.request.user.groups.filter(name='moder').exists():
+            return qs
+        return qs.filter(mailing_owner=self.request.user)
 
 class MailingDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Mailing
@@ -60,10 +65,12 @@ class MailingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     success_url = reverse_lazy('mailing:mailing_list')
     permission_required = 'mailing.change_mailing'
 
-    def get_form_class(self):
+    def has_permission(self):
+        self.object = self.get_object()
         user = self.request.user
-        if not user.has_perm('mailing.change_mailing') or not user == self.object.owner:
-            raise PermissionDenied
+        if not user.has_perm('mailing.change_mailing') or not user == self.object.mailing_owner:
+            raise False
+        return True
 
 
 class BlockingMailingView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -87,10 +94,12 @@ class MailingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     success_url = reverse_lazy('mailing:mailing_list')
     permission_required = 'mailing.delete_mailing'
 
-    def get_form_class(self):
+    def has_permission(self):
         user = self.request.user
-        if not user.has_perm('mailing.delete_mailing') or not user == self.object.owner:
-            raise PermissionDenied
+        self.object = self.get_object()
+        if not user.has_perm('mailing.delete_mailing') or not user == self.object.mailing_owner:
+            raise False
+        return True
 
 
 class MailingSendView(LoginRequiredMixin, DetailView):
